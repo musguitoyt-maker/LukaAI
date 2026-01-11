@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LukaAI | Blue Light</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --bg: #f0f7ff; /* Fondo azul clarito muy suave */
+            --sidebar: #ffffff; 
+            --p: #1e3a8a; /* Texto azul marino */
+            --sub: #64748b;
+            --accent: #3b82f6; /* Azul principal */
+            --border: #dbeafe;
+            --user-bubble: #dbeafe; /* Burbuja azul cielo */
+            --ai-text: #1e40af;
+        }
+
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; }
+        body { background: var(--bg); height: 100dvh; display: flex; overflow: hidden; color: var(--p); }
+
+        /* Sidebar Blanco/Azul */
+        #sidebar { 
+            width: 280px; background: var(--sidebar); border-right: 1px solid var(--border); 
+            display: flex; flex-direction: column; transition: 0.3s ease;
+            position: fixed; height: 100%; z-index: 1000; left: 0;
+        }
+        .side-h { padding: 2rem 1.5rem 1rem; font-weight: 700; font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+        .new-chat { 
+            margin: 0 1.5rem 1.5rem; padding: 14px; background: #eff6ff; color: var(--accent); 
+            border-radius: 16px; cursor: pointer; text-align: center; font-size: 0.9rem; font-weight: 700;
+            border: 1px solid var(--border); transition: 0.2s;
+        }
+        .new-chat:hover { background: var(--accent); color: #fff; }
+        .chat-list { flex: 1; overflow-y: auto; padding: 0 1rem; }
+        .chat-item { 
+            padding: 12px 16px; border-radius: 12px; margin-bottom: 4px; font-size: 0.85rem; 
+            cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--sub);
+        }
+        .chat-item:hover { background: #f8fafc; color: var(--accent); }
+        .active-chat { background: #e0f2fe; color: var(--accent); font-weight: 600; }
+
+        /* App Principal */
+        .app { flex: 1; display: flex; flex-direction: column; background: #ffffff; margin-left: 280px; transition: 0.3s ease; border-radius: 30px 0 0 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.02); }
+        
+        header { 
+            padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; 
+            background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); z-index: 10;
+        }
+        .logo img { height: 35px; width: auto; }
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--accent); }
+
+        /* Chat Estilo Gemini Azul */
+        #chat { flex: 1; padding: 2rem 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2.5rem; width: 100%; max-width: 800px; margin: 0 auto; }
+        
+        .m { display: flex; gap: 15px; width: 100%; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
+
+        .user { flex-direction: row-reverse; }
+        .user .txt-c { 
+            background: var(--user-bubble); color: #1e3a8a; padding: 14px 22px; border-radius: 22px; 
+            max-width: 85%; line-height: 1.6; font-size: 1rem; font-weight: 500;
+        }
+
+        .ai { align-items: flex-start; }
+        .ai .ai-icon { width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0; border: 1px solid var(--border); overflow: hidden; background: #f0f7ff; }
+        .ai .ai-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .ai .txt-c { flex: 1; line-height: 1.8; font-size: 1.05rem; color: var(--ai-text); padding-top: 4px; }
+        
+        .gen-img { width: 100%; max-width: 550px; border-radius: 20px; margin-top: 1rem; border: 1px solid var(--border); box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1); }
+        .btn-v { margin-top: 10px; background: #fff; border: 1px solid var(--border); padding: 5px 12px; border-radius: 12px; cursor: pointer; font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+
+        /* Footer Azul Claro */
+        .footer { padding: 1rem 1.5rem 1.5rem; width: 100%; max-width: 800px; margin: 0 auto; }
+        .in-g { 
+            display: flex; gap: 10px; align-items: center; background: #f0f7ff; 
+            padding: 8px 10px 8px 20px; border-radius: 25px; border: 1px solid var(--border);
+        }
+        input { flex: 1; border: none; background: transparent; padding: 12px 0; outline: none; font-size: 1rem; color: var(--p); }
+        .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; }
+
+        .disclaimer { font-size: 0.7rem; color: var(--sub); text-align: center; margin-top: 10px; font-weight: 500; }
+        #status { font-size: 0.8rem; color: var(--accent); margin-bottom: 8px; text-align: center; height: 1.2rem; font-weight: 700; }
+
+        @media (max-width: 900px) {
+            #sidebar { transform: translateX(-100%); }
+            .app { margin-left: 0; border-radius: 0; }
+            .menu-toggle { display: block; }
+            .sidebar-open #sidebar { transform: translateX(0); }
+        }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30, 58, 138, 0.1); z-index: 900; backdrop-filter: blur(2px); }
+    </style>
+</head>
+<body id="body">
+
+<div class="overlay" onclick="toggleMenu()"></div>
+
+<aside id="sidebar">
+    <div class="side-h">LukaAI Chats</div>
+    <div class="new-chat" onclick="createNewChat()">+ Nueva conversación</div>
+    <div class="chat-list" id="chatList"></div>
+</aside>
+
+<div class="app">
+    <header>
+        <div class="logo-box">
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <div class="logo"><img src="LukaAI.png" alt="LukaAI"></div>
+        </div>
+        <button onclick="deleteHistory()" style="border:none; background:none; color: var(--sub); font-size: 0.75rem; font-weight: 600; cursor: pointer;">Limpiar</button>
+    </header>
+    
+    <div id="chat"></div>
+
+    <div class="footer">
+        <div id="status"></div>
+        <div class="in-g">
+            <input type="text" id="uIn" placeholder="Pregunta a LukaAI..." autocomplete="off">
+            <button class="btn-s" onclick="send()">➔</button>
+        </div>
+        <p class="disclaimer">LukaAI puede cometer errores. Verifica la información importante.</p>
+    </div>
+</div>
+
+<script>
+    const KEY = "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";
+    const URL = "https://api.groq.com/openai/v1/chat/completions";
+    
+    let currentChatId = Date.now();
+    let allChats = JSON.parse(localStorage.getItem('luka_chats')) || {};
+
+    function toggleMenu() { document.getElementById('body').classList.toggle('sidebar-open'); }
+
+    function talk(btn) {
+        window.speechSynthesis.cancel();
+        const textToRead = btn.closest('.txt-c').querySelector('.text-content').innerText;
+        const u = new SpeechSynthesisUtterance(textToRead);
+        u.lang = 'es-ES';
+        window.speechSynthesis.speak(u);
+    }
+
+    function add(t, s, save = true) {
+        const c = document.getElementById('chat');
+        const d = document.createElement('div');
+        d.className = `m ${s}`;
+        
+        let cleanText = t.split('[GEN_IMG:')[0].trim();
+        
+        if (s === 'ai') {
+            let imgHtml = "";
+            if (t.includes('[GEN_IMG:')) {
+                const prompt = t.split('[GEN_IMG:')[1].split(']')[0];
+                const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?nologo=true&seed=${Math.floor(Math.random()*1000000)}`;
+                imgHtml = `<img src="${imgUrl}" class="gen-img">`;
+            }
+            d.innerHTML = `
+                <div class="ai-icon"><img src="LukaAI.png"></div>
+                <div class="txt-c">
+                    <span class="text-content">${cleanText}</span>
+                    ${imgHtml}
+                    <div><button class="btn-v" onclick="talk(this)">🔊 Escuchar</button></div>
+                </div>`;
+        } else {
+            d.innerHTML = `<div class="txt-c">${cleanText}</div>`;
+        }
+        
+        c.appendChild(d);
+        c.scrollTop = c.scrollHeight;
+        if(save) saveCurrentChat();
+    }
+
+    async function send() {
+        const i = document.getElementById('uIn');
+        const val = i.value.trim();
+        if (!val) return;
+
+        add(val, 'user');
+        document.getElementById('status').innerText = "LukaAI está pensando...";
+        i.value = "";
+        if(window.innerWidth < 900) document.getElementById('body').classList.remove('sidebar-open');
+
+        try {
+            const r = await fetch(URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${KEY}` },
+                body: JSON.stringify({ 
+                    model: "llama-3.3-70b-versatile", 
+                    messages: [
+                        {role: "system", content: "Eres LukaAI, una inteligencia artificial avanzada. Eres plenamente capaz de generar imágenes. Cuando el usuario te pida una, describe lo que vas a crear y termina con: [GEN_IMG: prompt detallado en inglés]. No uses burbujas en tus respuestas de IA."}, 
+                        ...getHistoryForApi(), 
+                        {role: "user", content: val}
+                    ],
+                    temperature: 0.7
+                })
+            });
+            const d = await r.json();
+            const res = d.choices[0].message.content;
+            document.getElementById('status').innerText = "";
+            add(res, 'ai');
+            updateSidebar();
+        } catch (e) {
+            document.getElementById('status').innerText = "";
+            add("Error al conectar.", "ai");
+        }
+    }
+
+    function saveCurrentChat() {
+        const messages = [];
+        document.querySelectorAll('.m').forEach(div => {
+            const isUser = div.classList.contains('user');
+            const txt = isUser ? div.querySelector('.txt-c').innerText : div.querySelector('.text-content').innerText;
+            messages.push({ type: isUser ? 'user' : 'ai', content: txt });
+        });
+        const firstMsg = messages.find(m => m.type === 'user')?.content.substring(0, 30) || "Nueva charla";
+        allChats[currentChatId] = { title: firstMsg, data: messages };
+        localStorage.setItem('luka_chats', JSON.stringify(allChats));
+    }
+
+    function updateSidebar() {
+        const list = document.getElementById('chatList');
+        list.innerHTML = "";
+        Object.keys(allChats).reverse().forEach(id => {
+            const item = document.createElement('div');
+            item.className = `chat-item ${id == currentChatId ? 'active-chat' : ''}`;
+            item.innerText = allChats[id].title;
+            item.onclick = () => { loadChat(id); if(window.innerWidth < 900) toggleMenu(); };
+            list.appendChild(item);
+        });
+    }
+
+    function loadChat(id) {
+        currentChatId = id;
+        document.getElementById('chat').innerHTML = "";
+        allChats[id].data.forEach(m => add(m.content, m.type, false));
+        updateSidebar();
+    }
+
+    function createNewChat() {
+        currentChatId = Date.now();
+        document.getElementById('chat').innerHTML = "";
+        add("¡Hola! Soy LukaAI. Puedo ayudarte con textos e imágenes. ¿En qué piensas hoy?", "ai", false);
+        updateSidebar();
+    }
+
+    function getHistoryForApi() {
+        if(!allChats[currentChatId]) return [];
+        return allChats[currentChatId].data.map(m => ({ role: m.type === 'user' ? 'user' : 'assistant', content: m.content })).slice(-8);
+    }
+
+    function deleteHistory() {
+        if(confirm("¿Eliminar historial?")) { localStorage.removeItem('luka_chats'); allChats = {}; createNewChat(); }
+    }
+
+    document.getElementById('uIn').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
+    window.onload = () => { updateSidebar(); if(Object.keys(allChats).length > 0) loadChat(Object.keys(allChats).sort().reverse()[0]); else createNewChat(); };
+</script>
+</body>
+</html>
+
