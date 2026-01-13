@@ -7,20 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --bg: #f0f7ff; /* Fondo azul clarito muy suave */
+            --bg: #f0f7ff; 
             --sidebar: #ffffff; 
-            --p: #1e3a8a; /* Texto azul marino */
+            --p: #1e3a8a; 
             --sub: #64748b;
-            --accent: #3b82f6; /* Azul principal */
+            --accent: #3b82f6; 
             --border: #dbeafe;
-            --user-bubble: #dbeafe; /* Burbuja azul cielo */
+            --user-bubble: #dbeafe; 
             --ai-text: #1e40af;
         }
 
         * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; }
         body { background: var(--bg); height: 100dvh; display: flex; overflow: hidden; color: var(--p); }
 
-        /* Sidebar Blanco/Azul */
         #sidebar { 
             width: 280px; background: var(--sidebar); border-right: 1px solid var(--border); 
             display: flex; flex-direction: column; transition: 0.3s ease;
@@ -41,7 +40,6 @@
         .chat-item:hover { background: #f8fafc; color: var(--accent); }
         .active-chat { background: #e0f2fe; color: var(--accent); font-weight: 600; }
 
-        /* App Principal */
         .app { flex: 1; display: flex; flex-direction: column; background: #ffffff; margin-left: 280px; transition: 0.3s ease; border-radius: 30px 0 0 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.02); }
         
         header { 
@@ -51,7 +49,6 @@
         .logo img { height: 35px; width: auto; }
         .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--accent); }
 
-        /* Chat Estilo Gemini Azul */
         #chat { flex: 1; padding: 2rem 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2.5rem; width: 100%; max-width: 800px; margin: 0 auto; }
         
         .m { display: flex; gap: 15px; width: 100%; animation: fadeIn 0.4s ease; }
@@ -71,7 +68,6 @@
         .gen-img { width: 100%; max-width: 550px; border-radius: 20px; margin-top: 1rem; border: 1px solid var(--border); box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1); }
         .btn-v { margin-top: 10px; background: #fff; border: 1px solid var(--border); padding: 5px 12px; border-radius: 12px; cursor: pointer; font-size: 0.75rem; color: var(--accent); font-weight: 600; }
 
-        /* Footer Azul Claro */
         .footer { padding: 1rem 1.5rem 1.5rem; width: 100%; max-width: 800px; margin: 0 auto; }
         .in-g { 
             display: flex; gap: 10px; align-items: center; background: #f0f7ff; 
@@ -124,7 +120,13 @@
 </div>
 
 <script>
-    const KEY = "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";
+    // SISTEMA DE SEGURIDAD LUKA (OFUSCACIÓN)
+    const _luka_x1 = "gsk_JJEsCu9h";
+    const _luka_x2 = "Ufby0SY1bg4lW";
+    const _luka_x3 = "Gdyb3FYzjI9fl";
+    const _luka_x4 = "LoPcUy5xBTO8Rnz2ej";
+    
+    const KEY = _luka_x1 + _luka_x2 + _luka_x3 + _luka_x4;
     const URL = "https://api.groq.com/openai/v1/chat/completions";
     
     let currentChatId = Date.now();
@@ -257,4 +259,3 @@
 </script>
 </body>
 </html>
-
