@@ -11,7 +11,7 @@
             --sidebar: #ffffff; 
             --p: #0f172a; 
             --sub: #64748b;
-            --accent: #00d4ff; /* Celeste brillante */
+            --accent: #0099ff; /* Color solicitado */
             --border: #e2e8f0;
             --user-bubble: #f1f5f9; 
             --ai-text: #1e293b;
@@ -28,9 +28,9 @@
         }
         .side-h { padding: 2rem 1.5rem 1rem; font-weight: 700; font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
         .new-chat { 
-            margin: 0 1.5rem 1.5rem; padding: 12px; background: #e0faff; color: var(--accent); 
+            margin: 0 1.5rem 1.5rem; padding: 12px; background: #e6f5ff; color: var(--accent); 
             border-radius: 12px; cursor: pointer; text-align: center; font-size: 0.9rem; font-weight: 700;
-            border: 1px solid #b3efff; transition: 0.2s;
+            border: 1px solid #ccebff; transition: 0.2s;
         }
         .new-chat:hover { background: var(--accent); color: #fff; }
         
@@ -38,7 +38,7 @@
         .chat-item-wrapper { display: flex; align-items: center; margin-bottom: 4px; border-radius: 10px; transition: 0.2s; }
         .chat-item-wrapper:hover { background: #f1f5f9; }
         .chat-item { flex: 1; padding: 12px; font-size: 0.85rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--sub); }
-        .active-chat { background: #e0faff; color: #0098ba !important; font-weight: 600; border-radius: 10px; }
+        .active-chat { background: #e6f5ff; color: var(--accent) !important; font-weight: 600; border-radius: 10px; }
         .del-chat { padding: 12px; cursor: pointer; color: #cbd5e1; transition: 0.2s; }
         .del-chat:hover { color: #ef4444; }
 
@@ -68,7 +68,7 @@
         .in-g { display: flex; gap: 8px; background: #f8fafc; padding: 6px 6px 6px 15px; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 8px; }
         input { flex: 1; border: none; background: transparent; outline: none; font-size: 0.95rem; }
         .btn-s { background: var(--accent); color: #fff; border: none; width: 40px; height: 40px; border-radius: 10px; cursor: pointer; transition: 0.2s; font-size: 1.1rem; }
-        .btn-s:hover { background: #00bce0; }
+        .btn-s:hover { background: #007acc; }
         .disclaimer { font-size: 0.7rem; color: var(--sub); margin-top: 4px; }
 
         @media (max-width: 900px) {
