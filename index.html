@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LukaAI - Epicore Studios</title>
+    <title>LukaAI</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -158,7 +158,7 @@
                 body: JSON.stringify({ 
                     model: "llama-3.3-70b-versatile", 
                     messages: [
-                        {role: "system", content: "Eres LukaAI, una IA de Epicore Studios. Responde siempre de forma concisa, directa y muy informativa. Enfócate en hacer la conversación entretenida e interactiva usando algunos emojis."}, 
+                        {role: "system", content: "Eres LukaAI, una IA capacitada para resolver problemas. Responde siempre de forma concisa, directa y muy informativa. Enfócate en hacer la conversación entretenida e interactiva usando algunos emojis."}, 
                         ...getHistoryForApi(), 
                         {role: "user", content: val}
                     ],
@@ -225,7 +225,7 @@
     function createNewChat() {
         currentChatId = Date.now().toString();
         document.getElementById('chat').innerHTML = "";
-        add("Hola, soy LukaAI de Epicore Studios. ¿En qué puedo ayudarte? 😄", "ai", false);
+        add("Hola, soy LukaAI. ¿En qué puedo ayudarte? 😄", "ai", false);
         updateSidebar();
     }
 
