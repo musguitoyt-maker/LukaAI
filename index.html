@@ -45,26 +45,25 @@
         .del-chat:hover { color: #f56565; }
 
         /* Main App */
-        .app { flex: 1; display: flex; flex-direction: column; background: #fff; margin-left: 280px; transition: 0.3s ease; position: relative; }
+        .app { flex: 1; display: flex; flex-direction: column; background: #fff; margin-left: 280px; transition: 0.3s ease; position: relative; width: 100%; }
         
         header { 
-            padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center; 
+            padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; 
             border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
             z-index: 10;
         }
-        .logo-img { height: 28px; width: auto; }
+        .logo-img { height: 26px; width: auto; }
         .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); }
 
-        #chat { flex: 1; padding: 2rem 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; width: 100%; max-width: 800px; margin: 0 auto; scroll-behavior: smooth; }
+        #chat { flex: 1; padding: 1.5rem 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; width: 100%; max-width: 800px; margin: 0 auto; scroll-behavior: smooth; }
         
-        /* Mensajes */
         .m { display: flex; gap: 12px; width: 100%; animation: slideUp 0.4s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .user { flex-direction: row-reverse; }
         .user .txt-c { 
             background: var(--user-bubble); color: white; padding: 10px 16px; 
-            border-radius: 18px 18px 2px 18px; max-width: 75%; font-size: 0.92rem; 
+            border-radius: 18px 18px 2px 18px; max-width: 80%; font-size: 0.92rem; 
             box-shadow: 0 4px 10px rgba(0, 153, 255, 0.2); 
         }
 
@@ -73,60 +72,59 @@
         .ai .txt-c { line-height: 1.6; font-size: 0.92rem; color: var(--text-main); padding-top: 4px; flex: 1; }
 
         /* Formatos */
-        .txt-c pre { background: #1a202c; color: #e2e8f0; padding: 1.2rem; border-radius: 10px; overflow-x: auto; margin: 12px 0; font-family: 'Fira Code', monospace; font-size: 0.85rem; }
-        .txt-c code { font-family: 'Fira Code', monospace; background: #edf2f7; padding: 2px 5px; border-radius: 4px; color: #e53e3e; font-size: 0.85rem; }
-        .txt-c pre code { background: transparent; padding: 0; color: inherit; }
-        
-        .txt-c table { border-collapse: separate; border-spacing: 0; width: 100%; margin: 15px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-        .txt-c th, .txt-c td { border-bottom: 1px solid var(--border); padding: 12px; text-align: left; }
-        .txt-c th { background: #f8fafc; font-weight: 700; color: var(--text-sub); font-size: 0.8rem; text-transform: uppercase; }
-        .txt-c tr:last-child td { border-bottom: none; }
-        .txt-c b { font-weight: 700; color: #000; }
+        .txt-c pre { background: #1a202c; color: #e2e8f0; padding: 1rem; border-radius: 10px; overflow-x: auto; margin: 12px 0; font-family: 'Fira Code', monospace; font-size: 0.8rem; }
+        .txt-c code { font-family: 'Fira Code', monospace; background: #edf2f7; padding: 2px 5px; border-radius: 4px; color: #e53e3e; font-size: 0.8rem; }
+        .txt-c table { border-collapse: separate; border-spacing: 0; width: 100%; margin: 15px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-size: 0.85rem; }
+        .txt-c th, .txt-c td { border-bottom: 1px solid var(--border); padding: 10px; text-align: left; }
+        .txt-c th { background: #f8fafc; font-weight: 700; color: var(--text-sub); }
 
-        /* Estado Inicial (Centrado) */
+        /* Pantalla de Bienvenida Responsive */
         .welcome-screen {
-            position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
-            text-align: center; width: 100%; max-width: 600px; transition: 0.5s ease; z-index: 5;
+            position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; width: 90%; max-width: 600px; transition: opacity 0.4s ease; z-index: 5;
         }
-        .welcome-screen img { width: 80px; margin-bottom: 20px; opacity: 0.8; }
-        .welcome-screen h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
-        .welcome-screen p { color: var(--text-sub); font-size: 1rem; }
+        .welcome-screen img { width: 64px; height: 64px; margin-bottom: 20px; opacity: 0.9; }
+        .welcome-screen h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); line-height: 1.2; }
+        .welcome-screen p { color: var(--text-sub); font-size: 0.9rem; padding: 0 10px; }
 
         /* Footer / Input Animado */
         .footer { 
-            padding: 1rem 1.5rem 2rem; width: 100%; max-width: 800px; margin: 0 auto; 
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1rem; width: 100%; max-width: 800px; margin: 0 auto; 
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Clase para cuando está centrado */
         .footer.centered {
-            position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
-            max-width: 600px;
+            position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%);
+            max-width: 550px; width: 92%;
         }
 
         .in-g { 
-            display: flex; gap: 8px; background: #fff; padding: 8px 8px 8px 18px; 
+            display: flex; gap: 8px; background: #fff; padding: 6px 6px 6px 16px; 
             border-radius: 16px; border: 1px solid var(--border); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06); transition: 0.3s;
         }
-        .in-g:focus-within { border-color: var(--accent); box-shadow: 0 10px 25px rgba(0, 153, 255, 0.1); }
-        input { flex: 1; border: none; background: transparent; outline: none; font-size: 1rem; color: var(--text-main); }
-        .btn-s { background: var(--accent); color: #fff; border: none; width: 40px; height: 40px; border-radius: 12px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .in-g:focus-within { border-color: var(--accent); box-shadow: 0 8px 20px rgba(0, 153, 255, 0.1); }
+        input { flex: 1; border: none; background: transparent; outline: none; font-size: 1rem; color: var(--text-main); width: 100%; }
+        .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .btn-s:hover { opacity: 0.9; transform: scale(1.05); }
-        .disclaimer { font-size: 0.65rem; color: var(--text-sub); margin-top: 10px; text-align: center; }
+        .disclaimer { font-size: 0.65rem; color: var(--text-sub); margin-top: 10px; text-align: center; line-height: 1.4; padding: 0 10px; }
 
         .typing::after { content: '|'; animation: blink 1s infinite; margin-left: 2px; color: var(--accent); }
         @keyframes blink { 50% { opacity: 0; } }
 
+        /* Tablet y Móvil */
         @media (max-width: 900px) {
-            #sidebar { transform: translateX(-100%); width: 85%; }
+            #sidebar { transform: translateX(-100%); width: 280px; max-width: 80%; }
             .app { margin-left: 0; }
             .menu-toggle { display: block; }
             .sidebar-open #sidebar { transform: translateX(0); }
             header { padding: 0.8rem 1rem; }
-            .footer.centered { width: 90%; }
+            .welcome-screen { top: 32%; }
+            .footer.centered { top: 52%; }
+            .welcome-screen h1 { font-size: 1.3rem; }
         }
-        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 900; backdrop-filter: blur(2px); }
+
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 900; backdrop-filter: blur(3px); }
         .sidebar-open .overlay { display: block; }
     </style>
 </head>
@@ -156,7 +154,7 @@
     <div id="chat"></div>
 
     <div id="footerContainer" class="footer centered">
-        <div id="status" style="font-size: 0.7rem; color: var(--accent); margin-bottom: 8px; height: 1rem; text-align: center; font-weight: 500;"></div>
+        <div id="status" style="font-size: 0.7rem; color: var(--accent); margin-bottom: 6px; height: 1rem; text-align: center; font-weight: 500;"></div>
         <div class="in-g">
             <input type="text" id="uIn" placeholder="Pregunta algo a LukaAI..." autocomplete="off">
             <button class="btn-s" onclick="send()">
@@ -259,7 +257,6 @@
         const val = input.value.trim();
         if (!val) return;
 
-        // Si es el primer mensaje, mover la barra
         if (document.getElementById('footerContainer').classList.contains('centered')) {
             transitionToChat();
         }
@@ -267,7 +264,7 @@
         add(val, 'user');
         input.value = "";
         const status = document.getElementById('status');
-        status.innerText = "LukaAI está pensando...";
+        status.innerText = "LukaAI pensando...";
 
         try {
             const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
