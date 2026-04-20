@@ -11,9 +11,9 @@
             --sidebar: #f9fbff; 
             --text-main: #1a202c; 
             --text-sub: #718096;
-            --accent: #0099ff; /* Color original restaurado */
+            --accent: #0099ff; 
             --border: #edf2f7;
-            --user-bubble: #0099ff; /* Color original restaurado */
+            --user-bubble: #0099ff; 
             --ai-bg: #f7fafc;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
@@ -45,11 +45,12 @@
         .del-chat:hover { color: #f56565; }
 
         /* Main App */
-        .app { flex: 1; display: flex; flex-direction: column; background: #fff; margin-left: 280px; transition: 0.3s ease; }
+        .app { flex: 1; display: flex; flex-direction: column; background: #fff; margin-left: 280px; transition: 0.3s ease; position: relative; }
         
         header { 
             padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center; 
             border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+            z-index: 10;
         }
         .logo-img { height: 28px; width: auto; }
         .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); }
@@ -80,23 +81,40 @@
         .txt-c th, .txt-c td { border-bottom: 1px solid var(--border); padding: 12px; text-align: left; }
         .txt-c th { background: #f8fafc; font-weight: 700; color: var(--text-sub); font-size: 0.8rem; text-transform: uppercase; }
         .txt-c tr:last-child td { border-bottom: none; }
-        
         .txt-c b { font-weight: 700; color: #000; }
 
-        /* Footer / Input */
-        .footer { padding: 1rem 1.5rem 2rem; width: 100%; max-width: 800px; margin: 0 auto; }
+        /* Estado Inicial (Centrado) */
+        .welcome-screen {
+            position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; width: 100%; max-width: 600px; transition: 0.5s ease; z-index: 5;
+        }
+        .welcome-screen img { width: 80px; margin-bottom: 20px; opacity: 0.8; }
+        .welcome-screen h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .welcome-screen p { color: var(--text-sub); font-size: 1rem; }
+
+        /* Footer / Input Animado */
+        .footer { 
+            padding: 1rem 1.5rem 2rem; width: 100%; max-width: 800px; margin: 0 auto; 
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Clase para cuando está centrado */
+        .footer.centered {
+            position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
+            max-width: 600px;
+        }
+
         .in-g { 
             display: flex; gap: 8px; background: #fff; padding: 8px 8px 8px 18px; 
             border-radius: 16px; border: 1px solid var(--border); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03); transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.3s;
         }
         .in-g:focus-within { border-color: var(--accent); box-shadow: 0 10px 25px rgba(0, 153, 255, 0.1); }
-        input { flex: 1; border: none; background: transparent; outline: none; font-size: 0.95rem; color: var(--text-main); }
-        .btn-s { background: var(--accent); color: #fff; border: none; width: 36px; height: 36px; border-radius: 12px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        input { flex: 1; border: none; background: transparent; outline: none; font-size: 1rem; color: var(--text-main); }
+        .btn-s { background: var(--accent); color: #fff; border: none; width: 40px; height: 40px; border-radius: 12px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
         .btn-s:hover { opacity: 0.9; transform: scale(1.05); }
         .disclaimer { font-size: 0.65rem; color: var(--text-sub); margin-top: 10px; text-align: center; }
 
-        /* Typing cursor animation */
         .typing::after { content: '|'; animation: blink 1s infinite; margin-left: 2px; color: var(--accent); }
         @keyframes blink { 50% { opacity: 0; } }
 
@@ -106,6 +124,7 @@
             .menu-toggle { display: block; }
             .sidebar-open #sidebar { transform: translateX(0); }
             header { padding: 0.8rem 1rem; }
+            .footer.centered { width: 90%; }
         }
         .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 900; backdrop-filter: blur(2px); }
         .sidebar-open .overlay { display: block; }
@@ -128,14 +147,20 @@
         <div style="width: 32px;"></div>
     </header>
     
+    <div id="welcome" class="welcome-screen">
+        <img src="LukaAI.png" alt="Logo">
+        <h1>¿En qué puedo apoyarte hoy?</h1>
+        <p>Tu asistente inteligente y directo.</p>
+    </div>
+
     <div id="chat"></div>
 
-    <div class="footer">
+    <div id="footerContainer" class="footer centered">
         <div id="status" style="font-size: 0.7rem; color: var(--accent); margin-bottom: 8px; height: 1rem; text-align: center; font-weight: 500;"></div>
         <div class="in-g">
             <input type="text" id="uIn" placeholder="Pregunta algo a LukaAI..." autocomplete="off">
             <button class="btn-s" onclick="send()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
         </div>
         <div class="disclaimer">LukaAI puede cometer errores. Considera verificar la información importante.</div>
@@ -191,11 +216,18 @@
             element.innerHTML = parseM(currentText);
             i++;
             document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
-            await new Promise(r => setTimeout(r, 15)); // Animación más lenta (de 5ms a 15ms)
+            await new Promise(r => setTimeout(r, 15));
         }
         element.classList.remove('typing');
         isTyping = false;
         saveChats();
+    }
+
+    function transitionToChat() {
+        const welcome = document.getElementById('welcome');
+        const footer = document.getElementById('footerContainer');
+        if (welcome) welcome.style.display = 'none';
+        footer.classList.remove('centered');
     }
 
     function add(text, sender, animate = false) {
@@ -226,6 +258,11 @@
         const input = document.getElementById('uIn');
         const val = input.value.trim();
         if (!val) return;
+
+        // Si es el primer mensaje, mover la barra
+        if (document.getElementById('footerContainer').classList.contains('centered')) {
+            transitionToChat();
+        }
 
         add(val, 'user');
         input.value = "";
@@ -302,18 +339,26 @@
         if (isTyping) return;
         currentChatId = id;
         document.getElementById('chat').innerHTML = "";
-        if (allChats[id]) {
+        if (allChats[id] && allChats[id].data.length > 0) {
+            transitionToChat();
             allChats[id].data.forEach(m => add(m.content, m.type, false));
+        } else {
+            showWelcome();
         }
         if(window.innerWidth < 900) document.getElementById('body').classList.remove('sidebar-open');
         updateSidebar();
     }
 
+    function showWelcome() {
+        document.getElementById('welcome').style.display = 'block';
+        document.getElementById('footerContainer').classList.add('centered');
+        document.getElementById('chat').innerHTML = "";
+    }
+
     function createNewChat() {
         if (isTyping) return;
         currentChatId = Date.now().toString();
-        document.getElementById('chat').innerHTML = "";
-        add("¡Hola! Soy LukaAI. ¿En qué puedo apoyarte hoy? 😄", "ai", false);
+        showWelcome();
         updateSidebar();
     }
 
