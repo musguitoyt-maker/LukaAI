@@ -55,12 +55,10 @@
         .logo-img { height: 26px; width: auto; }
         .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); }
 
-        /* Contenedor central mejorado para evitar el bug del teclado */
         #main-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centra el contenido cuando está vacío */
             align-items: center;
             overflow-y: auto;
             width: 100%;
@@ -77,15 +75,21 @@
             background: var(--user-bubble); color: white; padding: 10px 16px; 
             border-radius: 18px 18px 2px 18px; max-width: 80%; font-size: 0.92rem; 
             box-shadow: 0 4px 10px rgba(0, 153, 255, 0.2); 
+            border: 1px solid rgba(255,255,255,0.1); /* Delimitado sutil */
         }
 
         .ai .ai-icon-msg { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; background: #fff; border: 1px solid var(--border); padding: 4px; box-shadow: var(--shadow); }
         .ai .ai-icon-msg img { width: 100%; height: 100%; object-fit: contain; }
-        .ai .txt-c { line-height: 1.6; font-size: 0.92rem; color: var(--text-main); padding-top: 4px; flex: 1; }
+        .ai .txt-c { 
+            line-height: 1.6; font-size: 0.92rem; color: var(--text-main); 
+            padding: 12px 16px; flex: 1; 
+            background: var(--ai-bg); border-radius: 2px 18px 18px 18px; 
+            border: 1px solid var(--border); /* Cuadro delimitado para la IA */
+        }
 
         /* Pantalla de Bienvenida */
         .welcome-screen {
-            text-align: center; width: 90%; max-width: 600px; margin-bottom: 20px;
+            text-align: center; width: 90%; max-width: 600px; margin-top: auto; margin-bottom: 20px;
         }
         .welcome-screen img { width: 64px; height: 64px; margin-bottom: 15px; }
         .welcome-screen h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
@@ -93,17 +97,16 @@
 
         /* Footer / Input */
         .footer { 
-            padding: 1rem; width: 100%; max-width: 800px; margin: 0 auto; 
+            padding: 1rem; width: 100%; max-width: 800px; margin: 0 auto; margin-bottom: auto;
             transition: 0.3s ease;
         }
         
-        /* Cuando está en modo bienvenida (centrado) */
+        /* Control de estados */
         .app.is-welcome #main-container { justify-content: center; }
         .app.is-welcome #chat { display: none; }
-        
-        /* Cuando ya hay chat */
         .app.is-chat #main-container { justify-content: flex-start; }
-        .app.is-chat .welcome-screen { display: none; }
+        .app.is-chat #main-container .welcome-screen { display: none; }
+        .app.is-chat .footer { margin-bottom: 0; }
 
         .in-g { 
             display: flex; gap: 8px; background: #fff; padding: 6px 6px 6px 16px; 
