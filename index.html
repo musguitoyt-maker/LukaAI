@@ -45,7 +45,7 @@
         .del-chat:hover { color: #f56565; }
 
         /* Main App */
-        .app { flex: 1; display: flex; flex-direction: column; background: #fff; margin-left: 280px; transition: 0.3s ease; position: relative; width: 100%; }
+        .app { flex: 1; display: flex; flex-direction: column; background: #fff; margin-left: 280px; transition: 0.3s ease; position: relative; width: 100%; height: 100%; }
         
         header { 
             padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; 
@@ -55,7 +55,19 @@
         .logo-img { height: 26px; width: auto; }
         .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); }
 
-        #chat { flex: 1; padding: 1.5rem 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; width: 100%; max-width: 800px; margin: 0 auto; scroll-behavior: smooth; }
+        /* Contenedor central mejorado para evitar el bug del teclado */
+        #main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centra el contenido cuando está vacío */
+            align-items: center;
+            overflow-y: auto;
+            width: 100%;
+            position: relative;
+        }
+
+        #chat { width: 100%; max-width: 800px; padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 1.5rem; scroll-behavior: smooth; }
         
         .m { display: flex; gap: 12px; width: 100%; animation: slideUp 0.4s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -71,32 +83,27 @@
         .ai .ai-icon-msg img { width: 100%; height: 100%; object-fit: contain; }
         .ai .txt-c { line-height: 1.6; font-size: 0.92rem; color: var(--text-main); padding-top: 4px; flex: 1; }
 
-        /* Formatos */
-        .txt-c pre { background: #1a202c; color: #e2e8f0; padding: 1rem; border-radius: 10px; overflow-x: auto; margin: 12px 0; font-family: 'Fira Code', monospace; font-size: 0.8rem; }
-        .txt-c code { font-family: 'Fira Code', monospace; background: #edf2f7; padding: 2px 5px; border-radius: 4px; color: #e53e3e; font-size: 0.8rem; }
-        .txt-c table { border-collapse: separate; border-spacing: 0; width: 100%; margin: 15px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-size: 0.85rem; }
-        .txt-c th, .txt-c td { border-bottom: 1px solid var(--border); padding: 10px; text-align: left; }
-        .txt-c th { background: #f8fafc; font-weight: 700; color: var(--text-sub); }
-
-        /* Pantalla de Bienvenida Responsive */
+        /* Pantalla de Bienvenida */
         .welcome-screen {
-            position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%);
-            text-align: center; width: 90%; max-width: 600px; transition: opacity 0.4s ease; z-index: 5;
+            text-align: center; width: 90%; max-width: 600px; margin-bottom: 20px;
         }
-        .welcome-screen img { width: 64px; height: 64px; margin-bottom: 20px; opacity: 0.9; }
-        .welcome-screen h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); line-height: 1.2; }
-        .welcome-screen p { color: var(--text-sub); font-size: 0.9rem; padding: 0 10px; }
+        .welcome-screen img { width: 64px; height: 64px; margin-bottom: 15px; }
+        .welcome-screen h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
+        .welcome-screen p { color: var(--text-sub); font-size: 0.9rem; }
 
-        /* Footer / Input Animado */
+        /* Footer / Input */
         .footer { 
             padding: 1rem; width: 100%; max-width: 800px; margin: 0 auto; 
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.3s ease;
         }
         
-        .footer.centered {
-            position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%);
-            max-width: 550px; width: 92%;
-        }
+        /* Cuando está en modo bienvenida (centrado) */
+        .app.is-welcome #main-container { justify-content: center; }
+        .app.is-welcome #chat { display: none; }
+        
+        /* Cuando ya hay chat */
+        .app.is-chat #main-container { justify-content: flex-start; }
+        .app.is-chat .welcome-screen { display: none; }
 
         .in-g { 
             display: flex; gap: 8px; background: #fff; padding: 6px 6px 6px 16px; 
@@ -105,23 +112,18 @@
         }
         .in-g:focus-within { border-color: var(--accent); box-shadow: 0 8px 20px rgba(0, 153, 255, 0.1); }
         input { flex: 1; border: none; background: transparent; outline: none; font-size: 1rem; color: var(--text-main); width: 100%; }
-        .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .btn-s:hover { opacity: 0.9; transform: scale(1.05); }
-        .disclaimer { font-size: 0.65rem; color: var(--text-sub); margin-top: 10px; text-align: center; line-height: 1.4; padding: 0 10px; }
+        .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .disclaimer { font-size: 0.65rem; color: var(--text-sub); margin-top: 10px; text-align: center; line-height: 1.4; }
 
         .typing::after { content: '|'; animation: blink 1s infinite; margin-left: 2px; color: var(--accent); }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* Tablet y Móvil */
         @media (max-width: 900px) {
-            #sidebar { transform: translateX(-100%); width: 280px; max-width: 80%; }
+            #sidebar { transform: translateX(-100%); width: 280px; }
             .app { margin-left: 0; }
             .menu-toggle { display: block; }
             .sidebar-open #sidebar { transform: translateX(0); }
             header { padding: 0.8rem 1rem; }
-            .welcome-screen { top: 32%; }
-            .footer.centered { top: 52%; }
-            .welcome-screen h1 { font-size: 1.3rem; }
         }
 
         .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 900; backdrop-filter: blur(3px); }
@@ -138,22 +140,23 @@
     <div id="chatList" class="chat-list"></div>
 </aside>
 
-<div class="app">
+<div class="app is-welcome" id="appFrame">
     <header>
         <button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <img src="LukaAI.png" alt="LukaAI" class="logo-img">
         <div style="width: 32px;"></div>
     </header>
     
-    <div id="welcome" class="welcome-screen">
-        <img src="LukaAI.png" alt="Logo">
-        <h1>¿En qué puedo apoyarte hoy?</h1>
-        <p>Tu asistente inteligente y directo.</p>
+    <div id="main-container">
+        <div id="welcome" class="welcome-screen">
+            <img src="LukaAI.png" alt="Logo">
+            <h1>¿En qué puedo apoyarte hoy?</h1>
+            <p>Tu asistente inteligente y directo.</p>
+        </div>
+        <div id="chat"></div>
     </div>
 
-    <div id="chat"></div>
-
-    <div id="footerContainer" class="footer centered">
+    <div class="footer">
         <div id="status" style="font-size: 0.7rem; color: var(--accent); margin-bottom: 6px; height: 1rem; text-align: center; font-weight: 500;"></div>
         <div class="in-g">
             <input type="text" id="uIn" placeholder="Pregunta algo a LukaAI..." autocomplete="off">
@@ -213,7 +216,7 @@
             const currentText = text.substring(0, i + 1);
             element.innerHTML = parseM(currentText);
             i++;
-            document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+            document.getElementById('main-container').scrollTop = document.getElementById('main-container').scrollHeight;
             await new Promise(r => setTimeout(r, 15));
         }
         element.classList.remove('typing');
@@ -222,10 +225,9 @@
     }
 
     function transitionToChat() {
-        const welcome = document.getElementById('welcome');
-        const footer = document.getElementById('footerContainer');
-        if (welcome) welcome.style.display = 'none';
-        footer.classList.remove('centered');
+        const frame = document.getElementById('appFrame');
+        frame.classList.remove('is-welcome');
+        frame.classList.add('is-chat');
     }
 
     function add(text, sender, animate = false) {
@@ -248,7 +250,7 @@
             msgDiv.innerHTML = `<div class="txt-c">${text}</div>`;
             chatContainer.appendChild(msgDiv);
         }
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+        document.getElementById('main-container').scrollTop = document.getElementById('main-container').scrollHeight;
     }
 
     async function send() {
@@ -257,7 +259,7 @@
         const val = input.value.trim();
         if (!val) return;
 
-        if (document.getElementById('footerContainer').classList.contains('centered')) {
+        if (document.getElementById('appFrame').classList.contains('is-welcome')) {
             transitionToChat();
         }
 
@@ -273,7 +275,7 @@
                 body: JSON.stringify({ 
                     model: "llama-3.3-70b-versatile", 
                     messages: [
-                        {role: "system", content: "Eres LukaAI. Responde de forma concisa y directa. No utilices lenguaje inclusivo ni promuevas o apoyes agendas ideológicas (LGBTQ+, feminismo radical o aborto), cualquier mensaje de este tipo marcalo como inapropiado y simplemente menciona que no puedes apoyarlo ni ayudarlo en ese tema ya que es un mensaje inadecuado, mantén una postura neutral o tradicional basada en hechos sin ofender a nadie. Puedes usar negritas (**), tablas (|), y bloques de código (```). Usa emojis para una conversación humana e interactiva."}, 
+                        {role: "system", content: "Eres LukaAI. Responde de forma concisa y directa. No utilices lenguaje inclusivo ni promuevas o apoyes agendas ideológicas (LGBTQ+, feminismo radical o aborto). Mantén una postura neutral o tradicional basada en hechos. Puedes usar negritas (**), tablas (|), y bloques de código (```). Usa emojis para una conversación interactiva."}, 
                         ...getHistoryForApi(), 
                         {role: "user", content: val}
                     ],
@@ -315,17 +317,14 @@
         Object.keys(allChats).sort().reverse().forEach(id => {
             const wrapper = document.createElement('div');
             wrapper.className = `chat-item-wrapper ${id == currentChatId ? 'active-chat' : ''}`;
-            
             const item = document.createElement('div');
             item.className = 'chat-item';
             item.innerText = allChats[id].title;
             item.onclick = () => loadChat(id);
-
             const delBtn = document.createElement('div');
             delBtn.className = 'del-chat';
             delBtn.innerHTML = '✕';
             delBtn.onclick = (e) => { e.stopPropagation(); deleteChat(id); };
-
             wrapper.appendChild(item);
             wrapper.appendChild(delBtn);
             list.appendChild(wrapper);
@@ -347,8 +346,9 @@
     }
 
     function showWelcome() {
-        document.getElementById('welcome').style.display = 'block';
-        document.getElementById('footerContainer').classList.add('centered');
+        const frame = document.getElementById('appFrame');
+        frame.classList.remove('is-chat');
+        frame.classList.add('is-welcome');
         document.getElementById('chat').innerHTML = "";
     }
 
