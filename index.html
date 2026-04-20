@@ -21,7 +21,6 @@
         * { box-sizing: border-box; font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
         body { background: var(--bg); height: 100dvh; display: flex; overflow: hidden; color: var(--text-main); }
 
-        /* Sidebar */
         #sidebar { 
             width: 280px; background: var(--sidebar); border-right: 1px solid var(--border); 
             display: flex; flex-direction: column; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -29,22 +28,19 @@
         }
         .side-h { padding: 2rem 1.5rem 1rem; font-weight: 700; font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1.5px; }
         .new-chat { 
-            margin: 0 1.2rem 1.5rem; padding: 10px; background: #fff; color: var(--accent); 
+            margin: 0 1.2rem 1.5rem; padding: 12px; background: #fff; color: var(--accent); 
             border-radius: 10px; cursor: pointer; text-align: center; font-size: 0.85rem; font-weight: 600;
             border: 1px solid var(--border); transition: 0.2s; box-shadow: var(--shadow);
         }
-        .new-chat:hover { transform: translateY(-1px); border-color: var(--accent); }
         
         .chat-list { flex: 1; overflow-y: auto; padding: 0 0.8rem; }
         .chat-item-wrapper { display: flex; align-items: center; margin-bottom: 6px; border-radius: 8px; transition: 0.2s; border: 1px solid transparent; }
         .chat-item-wrapper:hover { background: #fff; border-color: var(--border); }
-        .chat-item { flex: 1; padding: 10px; font-size: 0.85rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-main); }
+        .chat-item { flex: 1; padding: 10px; font-size: 0.85rem; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .active-chat { background: #fff; border-color: var(--accent) !important; box-shadow: var(--shadow); }
         .active-chat .chat-item { color: var(--accent); font-weight: 600; }
-        .del-chat { padding: 10px; cursor: pointer; color: #cbd5e1; font-size: 0.8rem; }
-        .del-chat:hover { color: #f56565; }
+        .del-chat { padding: 10px; cursor: pointer; color: #cbd5e1; }
 
-        /* Main App */
         .app { flex: 1; display: flex; flex-direction: column; background: #fff; margin-left: 280px; transition: 0.3s ease; position: relative; width: 100%; height: 100%; }
         
         header { 
@@ -52,85 +48,62 @@
             border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
             z-index: 10;
         }
-        .logo-img { height: 26px; width: auto; }
-        .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); }
+        .logo-img { height: 26px; }
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; }
 
         #main-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-y: auto;
-            width: 100%;
-            position: relative;
+            flex: 1; display: flex; flex-direction: column; align-items: center;
+            overflow-y: auto; width: 100%; position: relative; 
+            scroll-behavior: auto; /* Cambiado a auto para un scroll de generación más fluido */
+            overflow-anchor: auto;
         }
 
-        #chat { width: 100%; max-width: 800px; padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 1.5rem; scroll-behavior: smooth; }
+        #chat { width: 100%; max-width: 800px; padding: 1.5rem 1rem; display: flex; flex-direction: column; gap: 1.5rem; }
         
-        .m { display: flex; gap: 12px; width: 100%; animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
+        .m { display: flex; gap: 12px; width: 100%; }
         .user { flex-direction: row-reverse; }
         .user .txt-c { 
             background: var(--user-bubble); color: white; padding: 10px 16px; 
             border-radius: 18px 18px 2px 18px; max-width: 80%; font-size: 0.92rem; 
-            box-shadow: 0 4px 10px rgba(0, 153, 255, 0.2); 
-            border: 1px solid rgba(255,255,255,0.1); /* Delimitado sutil */
         }
 
-        .ai .ai-icon-msg { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; background: #fff; border: 1px solid var(--border); padding: 4px; box-shadow: var(--shadow); }
-        .ai .ai-icon-msg img { width: 100%; height: 100%; object-fit: contain; }
-        .ai .txt-c { 
-            line-height: 1.6; font-size: 0.92rem; color: var(--text-main); 
-            padding: 12px 16px; flex: 1; 
-            background: var(--ai-bg); border-radius: 2px 18px 18px 18px; 
-            border: 1px solid var(--border); /* Cuadro delimitado para la IA */
-        }
+        .ai { background: var(--ai-bg); padding: 1.2rem; border-radius: 16px; border: 1px solid var(--border); }
+        .ai-icon-msg { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; background: #fff; border: 1px solid var(--border); padding: 4px; }
+        .ai-icon-msg img { width: 100%; height: 100%; object-fit: contain; }
+        .txt-c { line-height: 1.6; font-size: 0.92rem; color: var(--text-main); flex: 1; min-width: 0; word-wrap: break-word; }
 
-        /* Pantalla de Bienvenida */
-        .welcome-screen {
-            text-align: center; width: 90%; max-width: 600px; margin-top: auto; margin-bottom: 20px;
-        }
-        .welcome-screen img { width: 64px; height: 64px; margin-bottom: 15px; }
-        .welcome-screen h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text-main); }
-        .welcome-screen p { color: var(--text-sub); font-size: 0.9rem; }
+        .table-wrapper { width: 100%; overflow-x: auto; margin: 15px 0; border-radius: 8px; border: 1px solid var(--border); background: #fff; }
+        table { border-collapse: collapse; width: 100%; min-width: 450px; }
+        th, td { padding: 12px; border: 1px solid var(--border); text-align: left; }
+        th { background: #f8fafc; font-weight: 700; }
 
-        /* Footer / Input */
-        .footer { 
-            padding: 1rem; width: 100%; max-width: 800px; margin: 0 auto; margin-bottom: auto;
-            transition: 0.3s ease;
-        }
-        
-        /* Control de estados */
-        .app.is-welcome #main-container { justify-content: center; }
-        .app.is-welcome #chat { display: none; }
-        .app.is-chat #main-container { justify-content: flex-start; }
-        .app.is-chat #main-container .welcome-screen { display: none; }
-        .app.is-chat .footer { margin-bottom: 0; }
+        pre { background: #1a202c; color: #e2e8f0; padding: 1rem; border-radius: 10px; overflow-x: auto; margin: 12px 0; font-family: 'Fira Code', monospace; font-size: 0.85rem; }
+        code { font-family: 'Fira Code', monospace; background: #edf2f7; padding: 2px 4px; border-radius: 4px; color: #e53e3e; }
+        pre code { background: transparent; padding: 0; color: inherit; }
 
+        .welcome-screen { text-align: center; width: 90%; max-width: 600px; margin: auto; }
+        .welcome-screen img { width: 70px; margin-bottom: 15px; }
+
+        .footer { padding: 1rem; width: 100%; max-width: 800px; margin: 0 auto; }
         .in-g { 
             display: flex; gap: 8px; background: #fff; padding: 6px 6px 6px 16px; 
-            border-radius: 16px; border: 1px solid var(--border); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06); transition: 0.3s;
+            border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow);
         }
-        .in-g:focus-within { border-color: var(--accent); box-shadow: 0 8px 20px rgba(0, 153, 255, 0.1); }
-        input { flex: 1; border: none; background: transparent; outline: none; font-size: 1rem; color: var(--text-main); width: 100%; }
-        .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .disclaimer { font-size: 0.65rem; color: var(--text-sub); margin-top: 10px; text-align: center; line-height: 1.4; }
-
-        .typing::after { content: '|'; animation: blink 1s infinite; margin-left: 2px; color: var(--accent); }
-        @keyframes blink { 50% { opacity: 0; } }
+        input { flex: 1; border: none; outline: none; font-size: 1rem; }
+        .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
         @media (max-width: 900px) {
-            #sidebar { transform: translateX(-100%); width: 280px; }
+            #sidebar { transform: translateX(-100%); z-index: 2000; }
             .app { margin-left: 0; }
             .menu-toggle { display: block; }
             .sidebar-open #sidebar { transform: translateX(0); }
-            header { padding: 0.8rem 1rem; }
         }
-
-        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 900; backdrop-filter: blur(3px); }
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1500; }
         .sidebar-open .overlay { display: block; }
+        
+        /* Ocultar elementos en modo bienvenida */
+        .app.is-welcome #chat { display: none; }
+        .app.is-chat .welcome-screen { display: none; }
     </style>
 </head>
 <body id="body">
@@ -151,7 +124,7 @@
     </header>
     
     <div id="main-container">
-        <div id="welcome" class="welcome-screen">
+        <div class="welcome-screen">
             <img src="LukaAI.png" alt="Logo">
             <h1>¿En qué puedo apoyarte hoy?</h1>
             <p>Tu asistente inteligente y directo.</p>
@@ -160,14 +133,14 @@
     </div>
 
     <div class="footer">
-        <div id="status" style="font-size: 0.7rem; color: var(--accent); margin-bottom: 6px; height: 1rem; text-align: center; font-weight: 500;"></div>
+        <div id="status" style="font-size: 0.7rem; color: var(--accent); height: 1.2rem; text-align: center;"></div>
         <div class="in-g">
-            <input type="text" id="uIn" placeholder="Pregunta algo a LukaAI..." autocomplete="off">
+            <input type="text" id="uIn" placeholder="Escribe un mensaje..." autocomplete="off">
             <button class="btn-s" onclick="send()">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
         </div>
-        <div class="disclaimer">LukaAI puede cometer errores. Considera verificar la información importante.</div>
+        <div style="font-size: 0.65rem; color: var(--text-sub); text-align: center; margin-top: 10px;">LukaAI puede cometer errores.</div>
     </div>
 </div>
 
@@ -191,46 +164,42 @@
         text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
         text = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
         
-        if (text.includes('|')) {
-            const tableRegex = /\|(.+)\|/g;
-            text = text.replace(tableRegex, (match) => {
-                const rows = match.trim().split('\n');
-                let html = '<table>';
-                rows.forEach((row, i) => {
-                    if (row.includes('---')) return;
-                    const cols = row.split('|').filter(c => c.trim() !== "");
-                    if(cols.length > 0) {
-                        html += '<tr>' + cols.map(c => i === 0 ? `<th>${c}</th>` : `<td>${c}</td>`).join('') + '</tr>';
-                    }
-                });
-                return html + '</table>';
-            });
+        const lines = text.split('\n');
+        let inTable = false, tableHtml = "", finalHtml = "";
+
+        for (let line of lines) {
+            let trimmed = line.trim();
+            if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+                if (!inTable) { inTable = true; tableHtml = '<div class="table-wrapper"><table>'; }
+                if (trimmed.includes('---')) continue;
+                const cols = trimmed.split('|').filter((c, i, a) => i !== 0 && i !== a.length - 1);
+                const tag = tableHtml.includes('<th>') ? 'td' : 'th';
+                tableHtml += '<tr>' + cols.map(c => `<${tag}>${c.trim()}</${tag}>`).join('') + '</tr>';
+            } else {
+                if (inTable) { tableHtml += '</table></div>'; finalHtml += tableHtml; inTable = false; }
+                finalHtml += (trimmed.startsWith('<pre') || trimmed.endsWith('</pre>')) ? line : line + "<br>";
+            }
         }
-        return text.replace(/\n/g, '<br>');
+        if (inTable) finalHtml += '</table></div>';
+        return finalHtml;
     }
 
     async function typeWriter(element, text) {
         isTyping = true;
         let i = 0;
-        element.innerHTML = "";
-        element.classList.add('typing');
+        const container = document.getElementById('main-container');
         
         while (i < text.length) {
-            const currentText = text.substring(0, i + 1);
+            const currentText = text.substring(0, i + 2); // Salto de 2 para mayor velocidad
             element.innerHTML = parseM(currentText);
-            i++;
-            document.getElementById('main-container').scrollTop = document.getElementById('main-container').scrollHeight;
-            await new Promise(r => setTimeout(r, 15));
+            i += 2;
+            container.scrollTop = container.scrollHeight; // Forzar scroll
+            await new Promise(r => setTimeout(r, 5));
         }
-        element.classList.remove('typing');
+        element.innerHTML = parseM(text);
+        container.scrollTop = container.scrollHeight;
         isTyping = false;
         saveChats();
-    }
-
-    function transitionToChat() {
-        const frame = document.getElementById('appFrame');
-        frame.classList.remove('is-welcome');
-        frame.classList.add('is-chat');
     }
 
     function add(text, sender, animate = false) {
@@ -239,21 +208,17 @@
         msgDiv.className = `m ${sender}`;
         
         if (sender === 'ai') {
-            msgDiv.innerHTML = `
-                <div class="ai-icon-msg"><img src="LukaAI.png"></div>
-                <div class="txt-c"></div>`;
+            msgDiv.innerHTML = `<div class="ai-icon-msg"><img src="LukaAI.png"></div><div class="txt-c"></div>`;
             chatContainer.appendChild(msgDiv);
             const contentDiv = msgDiv.querySelector('.txt-c');
-            if (animate) {
-                typeWriter(contentDiv, text);
-            } else {
-                contentDiv.innerHTML = parseM(text);
-            }
+            if (animate) typeWriter(contentDiv, text);
+            else contentDiv.innerHTML = parseM(text);
         } else {
             msgDiv.innerHTML = `<div class="txt-c">${text}</div>`;
             chatContainer.appendChild(msgDiv);
         }
-        document.getElementById('main-container').scrollTop = document.getElementById('main-container').scrollHeight;
+        const container = document.getElementById('main-container');
+        container.scrollTop = container.scrollHeight;
     }
 
     async function send() {
@@ -262,14 +227,15 @@
         const val = input.value.trim();
         if (!val) return;
 
-        if (document.getElementById('appFrame').classList.contains('is-welcome')) {
-            transitionToChat();
+        const frame = document.getElementById('appFrame');
+        if (frame.classList.contains('is-welcome')) {
+            frame.classList.replace('is-welcome', 'is-chat');
         }
 
         add(val, 'user');
         input.value = "";
         const status = document.getElementById('status');
-        status.innerText = "LukaAI pensando...";
+        status.innerText = "LukaAI escribiendo...";
 
         try {
             const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -278,7 +244,7 @@
                 body: JSON.stringify({ 
                     model: "llama-3.3-70b-versatile", 
                     messages: [
-                        {role: "system", content: "Eres LukaAI. Responde de forma concisa y directa. No utilices lenguaje inclusivo ni promuevas o apoyes agendas ideológicas (LGBTQ+, feminismo radical o aborto). Mantén una postura neutral o tradicional basada en hechos. Puedes usar negritas (**), tablas (|), y bloques de código (```). Usa emojis para una conversación interactiva."}, 
+                        {role: "system", content: "Eres LukaAI. Responde de forma concisa y directa. No utilices lenguaje inclusivo ni promuevas o apoyes agendas ideológicas (LGBTQ+, feminismo radical o aborto), cualquier mensaje de este tipo marcalo como inapropiado y simplemente menciona que no puedes apoyarlo ni ayudarlo en ese tema ya que es un mensaje inadecuado, mantén una postura neutral o tradicional basada en hechos sin ofender a nadie. Puedes usar negritas (**), tablas (|), y bloques de código (```). Usa emojis para una conversación humana e interactiva."}, 
                         ...getHistoryForApi(), 
                         {role: "user", content: val}
                     ],
@@ -287,12 +253,11 @@
             });
             const d = await r.json();
             status.innerText = "";
-            const reply = d.choices[0].message.content;
-            add(reply, 'ai', true);
+            add(d.choices[0].message.content, 'ai', true);
             updateSidebar();
         } catch (e) {
             status.innerText = "";
-            add("Lo siento, hubo un error de red. 😓", "ai");
+            add("Error de conexión. Inténtalo de nuevo. 😓", "ai");
         }
     }
 
@@ -300,16 +265,11 @@
         const messages = [];
         document.querySelectorAll('.m').forEach(div => {
             const content = div.querySelector('.txt-c');
-            if(content && content.innerText) {
-                messages.push({ 
-                    type: div.classList.contains('user') ? 'user' : 'ai', 
-                    content: content.innerText 
-                });
-            }
+            if(content) messages.push({ type: div.classList.contains('user') ? 'user' : 'ai', content: content.innerText });
         });
         if (messages.length === 0) return;
-        const firstUserMsg = messages.find(m => m.type === 'user')?.content.substring(0, 25) || "Nueva charla";
-        allChats[currentChatId] = { title: firstUserMsg, data: messages };
+        const title = messages.find(m => m.type === 'user')?.content.substring(0, 25) || "Nueva charla";
+        allChats[currentChatId] = { title: title, data: messages };
         localStorage.setItem('luka_storage', JSON.stringify(allChats));
         localStorage.setItem('luka_current_id', currentChatId);
     }
@@ -320,16 +280,7 @@
         Object.keys(allChats).sort().reverse().forEach(id => {
             const wrapper = document.createElement('div');
             wrapper.className = `chat-item-wrapper ${id == currentChatId ? 'active-chat' : ''}`;
-            const item = document.createElement('div');
-            item.className = 'chat-item';
-            item.innerText = allChats[id].title;
-            item.onclick = () => loadChat(id);
-            const delBtn = document.createElement('div');
-            delBtn.className = 'del-chat';
-            delBtn.innerHTML = '✕';
-            delBtn.onclick = (e) => { e.stopPropagation(); deleteChat(id); };
-            wrapper.appendChild(item);
-            wrapper.appendChild(delBtn);
+            wrapper.innerHTML = `<div class="chat-item" onclick="loadChat('${id}')">${allChats[id].title}</div><div class="del-chat" onclick="deleteChat('${id}')">✕</div>`;
             list.appendChild(wrapper);
         });
     }
@@ -339,26 +290,18 @@
         currentChatId = id;
         document.getElementById('chat').innerHTML = "";
         if (allChats[id] && allChats[id].data.length > 0) {
-            transitionToChat();
+            document.getElementById('appFrame').classList.replace('is-welcome', 'is-chat');
             allChats[id].data.forEach(m => add(m.content, m.type, false));
-        } else {
-            showWelcome();
-        }
-        if(window.innerWidth < 900) document.getElementById('body').classList.remove('sidebar-open');
+        } else createNewChat();
+        if(window.innerWidth < 900) toggleMenu();
         updateSidebar();
-    }
-
-    function showWelcome() {
-        const frame = document.getElementById('appFrame');
-        frame.classList.remove('is-chat');
-        frame.classList.add('is-welcome');
-        document.getElementById('chat').innerHTML = "";
     }
 
     function createNewChat() {
         if (isTyping) return;
         currentChatId = Date.now().toString();
-        showWelcome();
+        document.getElementById('appFrame').classList.replace('is-chat', 'is-welcome');
+        document.getElementById('chat').innerHTML = "";
         updateSidebar();
     }
 
@@ -371,18 +314,11 @@
 
     function getHistoryForApi() {
         if(!allChats[currentChatId]) return [];
-        return allChats[currentChatId].data.map(m => ({ 
-            role: m.type === 'user' ? 'user' : 'assistant', 
-            content: m.content 
-        })).slice(-8);
+        return allChats[currentChatId].data.map(m => ({ role: m.type === 'user' ? 'user' : 'assistant', content: m.content })).slice(-8);
     }
 
     document.getElementById('uIn').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
-    window.onload = () => { 
-        updateSidebar(); 
-        if(allChats[currentChatId]) loadChat(currentChatId); 
-        else createNewChat();
-    };
+    window.onload = () => { updateSidebar(); if(allChats[currentChatId]) loadChat(currentChatId); else createNewChat(); };
 </script>
 </body>
 </html>
