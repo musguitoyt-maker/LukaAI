@@ -86,12 +86,20 @@
 
         .footer { padding: 1rem; width: 100%; max-width: 800px; margin: 0 auto; }
         .in-g { 
-            display: flex; gap: 8px; background: #fff; padding: 6px 12px; 
+            display: flex; gap: 8px; background: #fff; padding: 6px 6px 6px 12px; 
             border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow);
             align-items: center;
         }
 
-        input { flex: 1; min-width: 0; border: none; outline: none; font-size: 1rem; padding: 8px 0; overflow: hidden; }
+        input { 
+            flex: 1; 
+            border: none; 
+            outline: none; 
+            font-size: 1rem; 
+            padding: 8px 0; 
+            min-width: 0; 
+            text-overflow: ellipsis; 
+        }
         .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
         @media (max-width: 900px) {
