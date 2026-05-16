@@ -24,7 +24,8 @@
         #sidebar { 
             width: 280px; background: var(--sidebar); border-right: 1px solid var(--border); 
             display: flex; flex-direction: column; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: fixed; height: 100%; z-index: 1000; left: 0;
+            position: fixed; height: 100%; z-index: 2000; left: 0;
+            transform: translateX(0);
         }
         .side-h { padding: 2rem 1.5rem 1rem; font-weight: 700; font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1.5px; }
         .new-chat { 
@@ -98,12 +99,12 @@
             font-size: 1rem; 
             padding: 8px 0; 
             min-width: 0; 
-            text-overflow: ellipsis; 
         }
         .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
+        /* Ajustes Responsivos y del Menú Lateral */
         @media (max-width: 900px) {
-            #sidebar { transform: translateX(-100%); z-index: 2000; }
+            #sidebar { transform: translateX(-100%); }
             .app { margin-left: 0; }
             .menu-toggle { display: block; }
             .sidebar-open #sidebar { transform: translateX(0); }
