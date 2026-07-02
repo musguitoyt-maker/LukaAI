@@ -92,6 +92,10 @@
         input { flex: 1; border: none; outline: none; font-size: 1rem; }
         .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
+        /* Estilos de Privacidad */
+        #privacyModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
+        .p-content { background: #fff; padding: 2rem; border-radius: 16px; max-width: 600px; max-height: 80vh; overflow-y: auto; }
+
         @media (max-width: 900px) {
             #sidebar { transform: translateX(-100%); z-index: 2000; }
             .app { margin-left: 0; }
@@ -139,11 +143,29 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
         </div>
-        <div style="font-size: 0.65rem; color: var(--text-sub); text-align: center; margin-top: 10px;">LukaAI puede cometer errores.</div>
+        <div style="font-size: 0.65rem; color: var(--text-sub); text-align: center; margin-top: 10px;">
+            LukaAI puede cometer errores. <a href="#" onclick="togglePrivacy()" style="color:var(--accent); text-decoration:none;">Política de privacidad</a>.
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Privacidad -->
+<div id="privacyModal" onclick="togglePrivacy()">
+    <div class="p-content" onclick="event.stopPropagation()">
+        <h2>Política de Privacidad</h2>
+        <p style="margin-top:15px; line-height:1.6; color:var(--text-sub);">
+            En <strong>LukaAI</strong>, respetamos tu privacidad. Tus conversaciones se almacenan únicamente de forma local en tu navegador (LocalStorage) para permitirte retomar tus charlas. No recopilamos, compartimos ni almacenamos datos personales en servidores externos más allá de las llamadas necesarias a la API para procesar tus preguntas. Al usar esta herramienta, aceptas que tus mensajes son enviados a los servicios de IA correspondientes para generar las respuestas.
+        </p>
+        <button onclick="togglePrivacy()" style="margin-top:20px; padding:8px 16px; background:var(--accent); color:white; border:none; border-radius:8px; cursor:pointer;">Cerrar</button>
     </div>
 </div>
 
 <script>
+    function togglePrivacy() {
+        const modal = document.getElementById('privacyModal');
+        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
+
     const _p1 = "gsk_";
     const _p2 = "JJEsCu9h";
     const _p3 = "Ufby0SY1bg4lW";
