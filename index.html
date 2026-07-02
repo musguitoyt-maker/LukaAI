@@ -48,7 +48,7 @@
             border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
             z-index: 10;
         }
-        .logo-img { height: 26px; }
+        .logo-img { height: 40px; } /* Logo más grande en header */
         .menu-toggle { display: none; background: none; border: none; font-size: 1.2rem; cursor: pointer; }
 
         #main-container {
@@ -82,7 +82,7 @@
         pre code { background: transparent; padding: 0; color: inherit; }
 
         .welcome-screen { text-align: center; width: 90%; max-width: 600px; margin: auto; }
-        .welcome-screen img { width: 70px; margin-bottom: 15px; }
+        .welcome-screen img { width: 140px; margin-bottom: 20px; } /* Logo más grande en bienvenida */
 
         .footer { padding: 1rem; width: 100%; max-width: 800px; margin: 0 auto; }
         .in-g { 
@@ -92,9 +92,14 @@
         input { flex: 1; border: none; outline: none; font-size: 1rem; }
         .btn-s { background: var(--accent); color: #fff; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        /* Estilos de Privacidad */
-        #privacyModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
-        .p-content { background: #fff; padding: 2rem; border-radius: 16px; max-width: 600px; max-height: 80vh; overflow-y: auto; }
+        /* Modal Política de Privacidad */
+        #privacy-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-content {
+            background: white; padding: 2rem; border-radius: 16px; max-width: 500px; width: 100%;
+        }
 
         @media (max-width: 900px) {
             #sidebar { transform: translateX(-100%); z-index: 2000; }
@@ -110,6 +115,15 @@
     </style>
 </head>
 <body id="body">
+
+<!-- Política de Privacidad -->
+<div id="privacy-modal">
+    <div class="modal-content">
+        <h2>Política de Privacidad</h2>
+        <p style="margin: 15px 0; font-size: 0.9rem;">Tu privacidad es importante. LukaAI almacena tus conversaciones localmente en tu navegador para mantener el historial. No compartimos tus datos con terceros. Al continuar, aceptas el uso de cookies locales para el funcionamiento de la aplicación.</p>
+        <button onclick="document.getElementById('privacy-modal').style.display='none'" style="width: 100%; padding: 10px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer;">Aceptar</button>
+    </div>
+</div>
 
 <div class="overlay" onclick="toggleMenu()"></div>
 
@@ -143,29 +157,11 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
         </div>
-        <div style="font-size: 0.65rem; color: var(--text-sub); text-align: center; margin-top: 10px;">
-            LukaAI puede cometer errores. <a href="#" onclick="togglePrivacy()" style="color:var(--accent); text-decoration:none;">Política de privacidad</a>.
-        </div>
-    </div>
-</div>
-
-<!-- Modal de Privacidad -->
-<div id="privacyModal" onclick="togglePrivacy()">
-    <div class="p-content" onclick="event.stopPropagation()">
-        <h2>Política de Privacidad</h2>
-        <p style="margin-top:15px; line-height:1.6; color:var(--text-sub);">
-            En <strong>LukaAI</strong>, respetamos tu privacidad. Tus conversaciones se almacenan únicamente de forma local en tu navegador (LocalStorage) para permitirte retomar tus charlas. No recopilamos, compartimos ni almacenamos datos personales en servidores externos más allá de las llamadas necesarias a la API para procesar tus preguntas. Al usar esta herramienta, aceptas que tus mensajes son enviados a los servicios de IA correspondientes para generar las respuestas.
-        </p>
-        <button onclick="togglePrivacy()" style="margin-top:20px; padding:8px 16px; background:var(--accent); color:white; border:none; border-radius:8px; cursor:pointer;">Cerrar</button>
+        <div style="font-size: 0.65rem; color: var(--text-sub); text-align: center; margin-top: 10px;">LukaAI puede cometer errores.</div>
     </div>
 </div>
 
 <script>
-    function togglePrivacy() {
-        const modal = document.getElementById('privacyModal');
-        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-    }
-
     const _p1 = "gsk_";
     const _p2 = "JJEsCu9h";
     const _p3 = "Ufby0SY1bg4lW";
